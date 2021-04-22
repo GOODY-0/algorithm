@@ -15,7 +15,7 @@ const getMinIdx = (arr, pointer) => {
       minIndex = i;
       return (min = num);
     } else return min;
-  }, 100);
+  }, Infinity);
   return minIndex;
 };
 
