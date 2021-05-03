@@ -1,43 +1,32 @@
 const solution = (songs, dvd) => {
-  songs.sort((a, b) => a - b);
+  let answer;
+  let lt = Math.max(...songs);
+  let rt = songs.reduce((acc, cur) => acc + cur, 0);
 
-  const dvdList = [];
-  let bfDvd = 0;
-  for (let i = dvd; i <= songs.length; i += dvd) {
-    const subArr =
-      i + dvd > songs.length
-        ? songs.slice(bfDvd, songs.length)
-        : songs.slice(bfDvd, i);
-    dvdList.push(subArr);
-    bfDvd += dvd;
-  }
-
-  while (true) {
-    let cnt = 0;
-    for (let i = dvdList.length - 1; i > 0; i--) {
-      const curList = dvdList[i];
-      const bfList = dvdList[i - 1];
-      const sumGap = getSum(dvdList[i]) - getSum(dvdList[i - 1]);
-      if (sumGap > curList[0]) {
-        bfList.push(curList.shift());
-        cnt++;
-      }
+  while (lt <= rt) {
+    let mid = parseInt((lt + rt) / 2);
+    if (count(songs, mid) <= dvd) {
+      answer = mid;
+      rt = mid - 1;
+    } else {
+      lt = mid + 1;
     }
-    if (cnt === 0) break;
   }
-
-  const sumList = dvdList.map((arr) => {
-    return arr.reduce((acc, cur) => (acc += cur));
-  });
-
-  console.log('dvdList : ', dvdList);
-  console.log('sumList:', sumList);
-
-  console.log('answer:', Math.max(...sumList));
+  console.log(answer);
 };
 
-const getSum = (arr) => {
-  return arr.reduce((acc, cur) => (acc += cur));
+const count = (songs, capacity) => {
+  let cnt = 1,
+    sum = 0;
+  for (let x of songs) {
+    if (x + sum > capacity) {
+      cnt++;
+      sum = x;
+    } else {
+      sum += x;
+    }
+  }
+  return cnt;
 };
 
 solution([1, 2, 3, 4, 5, 6, 7, 8, 9], 3); // 17
