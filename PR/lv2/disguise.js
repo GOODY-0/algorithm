@@ -40,7 +40,7 @@ const clothes4 = [
 // s, sn = 2
 // n = 1
 
-solution(clothes2);
+solution(clothes1);
 
 // clothes를 돌면서 clothes[1] 을 key, clothes[0]을 value로 저장 => headgear는 2, eyewear 는 1
 // yellowhat
