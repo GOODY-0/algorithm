@@ -1,19 +1,14 @@
 const solution = (num) => {
-    let answer;
-    answer = DFS(num);
-
-    return answer;
-};
-
-const DFS = (num, string = "") => {
-    if (num === 1) {
-        string = num + string;
-        return string;
+  let answer = '';
+  const DFS = (n) => {
+    if (n === 0) return;
+    else {
+      DFS(parseInt(n / 2));
+      answer += parseInt(n % 2);
     }
-    const remainder = Math.floor(num % 2);
-    const quotient = Math.floor(num / 2);
-    string = remainder + string;
-    return DFS(quotient, string);
+  };
+  DFS(num);
+  console.log(answer);
 };
 
 solution(11); // 1011
