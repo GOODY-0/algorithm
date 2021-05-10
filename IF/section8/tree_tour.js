@@ -1,17 +1,23 @@
-const solution = () => {
-  let answer = '';
-  let num = 1;
-  const DFS = (v) => {
-    if (v > 7) return;
+const solution = (n) => {
+  const DFS = (num) => {
+    if (num > n) return;
     else {
-      console.log(v);
-      DFS(v * 2);
-      DFS(v * 2 + 1);
+      console.log(num);
+      DFS(num * 2);
+      DFS(num * 2 + 1);
     }
   };
-
-  DFS(num);
-  // console.log(answer);
+  DFS(1);
 };
 
-solution();
+solution(7);
+
+// 전위순회 출력 : 1 2 4 5 3 6 7
+// 중위순회 출력 : 4 2 5 1 6 3 7
+// 후위순회 출력 : 4 5 2 6 7 3 1
+
+/* 
+        1
+      2   3
+     4 5 6 7
+*/

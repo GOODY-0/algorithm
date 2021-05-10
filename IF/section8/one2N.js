@@ -1,13 +1,14 @@
-const solution = (num) => {
-  recursion(num);
-};
+const solution = (n) => {
+  // print 1 ~ n
+  const DFS = (num) => {
+    if (num > n) return;
+    else {
+      console.log(num);
+      DFS(num + 1);
+    }
+  };
 
-const recursion = (num) => {
-  if (num === 0) return;
-  else {
-    recursion(num - 1);
-    console.log(num);
-  }
+  DFS(1);
 };
 
 solution(3); // 1 2 3
