@@ -17,4 +17,4 @@ const solution = (N, count) => {
 	console.log(answer);
 	return answer;
 };
-solution(3, 3); // 1부터 3까지 적힌 구슬 중 2개 뽑는 경우의 수 (중복허용)
+solution(3, 2); // 1부터 3까지 적힌 구슬 중 2개 뽑는 경우의 수 (중복허용)
