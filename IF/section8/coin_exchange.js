@@ -1,20 +1,19 @@
 const solution = (coninTypes, amount) => {
 	let answer = Number.MAX_SAFE_INTEGER;
-	const DFS = (depth, sum) => {
+
+	const DFS = (L, sum) => {
 		if (sum > amount) return;
-		if (depth >= answer) return;
+		if (L >= answer) return;
 		if (sum === amount) {
-			answer = depth;
-			return;
+			answer = L;
 		} else {
 			for (let i = 0; i < coninTypes.length; i++) {
-				DFS(depth + 1, sum + coninTypes[i]);
+				DFS(L + 1, sum + coninTypes[i]);
 			}
 		}
 	};
 
 	DFS(0, 0);
-	console.log(answer);
 	return answer;
 };
 

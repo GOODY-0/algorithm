@@ -19,6 +19,7 @@ const solution = (numbers, M) => {
 			}
 		}
 	};
+
 	DFS(0);
 	console.log(answer);
 };

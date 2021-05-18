@@ -1,15 +1,14 @@
 const solution = (num) => {
-	let answer = 1;
+	let answer = 0;
 
 	const DFS = (n) => {
-		if (n === 0) return 1;
+		if (n === 1) return 1;
 		else {
-			answer *= n;
-			DFS(n - 1);
+			return n * DFS(n - 1);
 		}
 	};
 
-	DFS(num);
+	answer = DFS(num);
 	console.log(answer);
 };
 
