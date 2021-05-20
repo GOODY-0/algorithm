@@ -12,12 +12,3 @@ const solution = (n, r) => {
 	console.log(DFS(n, r));
 };
 solution(33, 19);
-
-/*
-                     5C3
-            4C2       +     4C3
-        3C1 +  3C2        3C2 + 3C3
-      2C0 2C1 2C1 2C2          
-            1C1    
-
-*/
