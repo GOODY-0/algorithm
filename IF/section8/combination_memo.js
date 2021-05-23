@@ -7,4 +7,4 @@ const solution = (n, r) => {
 	};
 	console.log(DFS(n, r));
 };
-solution(3, 0);
+solution(5, 3);
