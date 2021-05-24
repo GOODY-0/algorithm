@@ -1,13 +1,22 @@
 const solution = (nodeCnt, linkInfo) => {
 	let answer = 0;
 	const matrix = Array.from(Array(nodeCnt + 1), () => Array(nodeCnt + 1).fill(0));
+	const check = Array.from({ length: nodeCnt + 1 }, () => 0);
+	let path = [];
 
-	const DFS = (L, currNode) => {
-		if (L === nodeCnt && currNode === nodeCnt) {
+	const DFS = (L) => {
+		if (L === nodeCnt) {
 			answer++;
+			console.log(path);
 		} else {
-			for (let i = 1; i <= matrix[L].length; i++) {
-				if (matrix[L][i] && i > L) DFS(L + 1, i);
+			for (let i = 1; i <= nodeCnt; i++) {
+				if (matrix[L][i] && check[i] === 0) {
+					check[i] = 1;
+					path.push(i);
+					DFS(i);
+					check[i] = 0;
+					path.pop();
+				}
 			}
 		}
 	};
@@ -15,7 +24,10 @@ const solution = (nodeCnt, linkInfo) => {
 	for (let i = 0; i < linkInfo.length; i++) {
 		matrix[linkInfo[i][0]][linkInfo[i][1]] = 1;
 	}
-	DFS(1, 1);
+	path.push(1);
+	check[1] = 1;
+	DFS(1);
+	console.log(answer);
 	return answer;
 };
 
