@@ -19,7 +19,7 @@ const solution = (numbers, k, m) => {
 	};
 
 	DFS(0, 0);
-	console.log(answer);
+	console.log(combinations);
 };
 
 solution([2, 4, 5, 8, 12], 3, 6);
