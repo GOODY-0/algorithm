@@ -1,27 +1,26 @@
 const solution = (nodeCnt, linkInfo) => {
 	let answer = 0;
-	const matrix = Array.from(Array(nodeCnt + 1), () => Array(nodeCnt + 1).fill(0));
-	for (let [a, b] of linkInfo) matrix[a][b] = 1;
-	const path = [];
+	const list = Array.from(Array(nodeCnt + 1), () => []);
 	const check = Array(nodeCnt + 1).fill(0);
+	for (let [a, b] of linkInfo) list[a].push(b);
+	const path = [];
 
 	const DFS = (v) => {
 		if (v === nodeCnt) {
 			answer++;
 			console.log(path);
 		} else {
-			for (let i = 1; i <= nodeCnt; i++) {
-				if (check[i] === 0 && matrix[v][i] === 1) {
-					check[i] = 1;
-					path.push(i);
-					DFS(i);
+			for (let i = 0; i < list[v].length; i++) {
+				if (check[list[v][i]] === 0) {
+					check[list[v][i]] = 1;
+					path.push(list[v][i]);
+					DFS(list[v][i]);
+					check[list[v][i]] = 0;
 					path.pop();
-					check[i] = 0;
 				}
 			}
 		}
 	};
-
 	check[1] = 1;
 	path.push(1);
 	DFS(1);
