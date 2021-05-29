@@ -4,12 +4,12 @@ const solution = (maze) => {
 	const dy = [0, 1, 0, -1];
 
 	const DFS = (x, y) => {
-		if (x === maze.length - 1 && y === maze.length - 1) {
+		if (x === 6 && y === 6) {
 			answer++;
 		} else {
 			for (let i = 0; i < 4; i++) {
-				let nx = dx[i] + x;
-				let ny = dy[i] + y;
+				const nx = x + dx[i];
+				const ny = y + dy[i];
 				if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && maze[nx][ny] === 0) {
 					maze[nx][ny] = 1;
 					DFS(nx, ny);
