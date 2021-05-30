@@ -1,24 +1,22 @@
 const solution = (person, cow) => {
-	let answer = 1;
-	const jump = [1, -1, 5];
 	const queue = [];
-	let count = 0;
-	const threes = [3];
-	if (person === cow) return 1;
-	while (threes[threes.length - 1] < 10001) {
-		threes.push(threes[threes.length - 1] * 3);
-	}
-
+	const ch = Array(10001).fill(0);
+	let L = 0;
+	ch[person] = 1;
 	queue.push(person);
 	while (queue.length) {
-		const curPos = queue.shift();
-		if (curPos === cow) break;
-		count++;
-		if (threes.indexOf(count) !== -1) answer++;
-		for (let j of jump) {
-			queue.push(curPos + j);
-			if (curPos + j === cow) return answer;
+		let length = queue.length;
+		for (let i = 0; i < length; i++) {
+			const curPos = queue.shift();
+			for (let nxPos of [curPos - 1, curPos + 1, curPos + 5]) {
+				if (nxPos === cow) return L + 1;
+				if (ch[nxPos] === 0 && nxPos > 0 && nxPos < 10001) {
+					ch[nxPos] = 1;
+					queue.push(nxPos);
+				}
+			}
 		}
+		L++;
 	}
 };
 
