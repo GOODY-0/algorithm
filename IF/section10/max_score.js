@@ -16,7 +16,7 @@ const solution = (maxTime, problems) => {
 	// PostCondition R :
 	// i === problems.length && sum of [time1, time2, ...] <= maxTime implies R
 	answer = dy[maxTime]; // 41
-	console.log(answer);
+	console.log(dy);
 	return answer;
 };
 
