@@ -1,39 +1,20 @@
-const solution1 = (numbers, target) => {
-  let answer;
-  const sum = numbers.reduce((acc, cur) => acc + cur, 0);
-  if (sum < target) return 0;
-  if (sum === target) return 1;
-  let total = recursion(sum, numbers);
-  return answer;
-};
-
-// const recursion = (sum, numbers) => {};
-
-// -1+1+1+1+1
-// +1-1+1+1+1
-// +1+1-1+1+1
-// +1+1+1-1+1
-// +1+1+1+1-1
-
 function solution(numbers, target) {
-  let answer = 0;
-  recur(0, 0);
-  console.log(answer);
+	var answer = 0;
+	// const ch = Array.from({length: numbers.length}, ()=>0);
 
-  function recur(count, sum) {
-    if (count === numbers.length) {
-      if (sum === target) {
-        answer++;
-      }
-      return;
-    }
+	const DFS = (L, sum) => {
+		if (L === numbers.length) {
+			if (sum === target) {
+				answer++;
+			}
 
-    // left child
-    recur(count + 1, sum + numbers[count]);
-    // right child
-    recur(count + 1, sum - numbers[count]);
-  }
+			return;
+		}
+
+		DFS(L + 1, sum + numbers[L]);
+		DFS(L + 1, sum - numbers[L]);
+	};
+
+	DFS(0, 0);
+	return answer;
 }
-const numbers = [1, 1, 1, 1, 1];
-const target = 3;
-solution(numbers, target); // 5
