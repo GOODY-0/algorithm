@@ -1,20 +1,18 @@
 const solution = (numbers, M) => {
 	const answer = [];
-	const check = new Array(numbers.length);
-	check.fill(0);
-	const tmp = new Array(M);
-	tmp.fill(0);
+	const temp = [];
+	const ch = Array.from({ length: numbers.length }, () => 0);
 
-	const DFS = (L) => {
+	const DFS = L => {
 		if (L === M) {
-			answer.push([...tmp]);
+			answer.push([...temp]);
 		} else {
 			for (let i = 0; i < numbers.length; i++) {
-				if (check[i] === 0) {
-					check[i] = 1;
-					tmp[L] = numbers[i];
+				if (ch[i] === 0) {
+					ch[i] = 1;
+					temp[L] = numbers[i];
 					DFS(L + 1);
-					check[i] = 0;
+					ch[i] = 0;
 				}
 			}
 		}
@@ -24,5 +22,5 @@ const solution = (numbers, M) => {
 	console.log(answer);
 };
 
-solution([3, 6, 9], 2);
+solution([1, 2, 3, 4], 3);
 // numbers중 m 개를 뽑아 일렬로 나열하는 방법 모두 출력..
