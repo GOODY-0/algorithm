@@ -1,20 +1,16 @@
 const solution = (k, cards) => {
-	let count = 1;
-	cards = cards.sort((a, b) => b - a);
-	let answer;
+	let temp = new Set();
 
 	for (let i = 0; i < cards.length; i++) {
 		for (let j = i + 1; j < cards.length; j++) {
 			for (let s = j + 1; s < cards.length; s++) {
-				let sum = 0;
-				if (count === k) {
-					sum = cards[i] + cards[j] + cards[s];
-					answer = sum;
-				}
-				count++;
+				temp.add(cards[i] + cards[j] + cards[s]);
 			}
 		}
 	}
+
+	const arr = Array.from(temp).sort((a, b) => b - a);
+	const answer = arr[k - 1];
 	console.log(answer);
 };
 
