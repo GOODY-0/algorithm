@@ -1,23 +1,21 @@
 const solution = (k, cards) => {
-    cards.sort((a,b) => b - a);
-    const sums = [];
-    for(let i = 0; i < cards.length; i++) {
-        for(let j = i+1; j < cards.length; j++) {
-            for(let k = j+1; k < cards.length; k++) {
-                sums.push(cards[i] + cards[j] + cards[k]);
-            }
-        }
-    }
+	let count = 1;
+	cards = cards.sort((a, b) => b - a);
+	let answer;
 
-    sums.sort((a,b) => b-a);
-    const sumSet = new Set(sums);
-    const sumArr = Array.from(sumSet);
-    console.log(sumArr[k-1]);
-    return sumArr[k-1];
-}
+	for (let i = 0; i < cards.length; i++) {
+		for (let j = i + 1; j < cards.length; j++) {
+			for (let s = j + 1; s < cards.length; s++) {
+				let sum = 0;
+				if (count === k) {
+					sum = cards[i] + cards[j] + cards[s];
+					answer = sum;
+				}
+				count++;
+			}
+		}
+	}
+	console.log(answer);
+};
 
-solution(10, [13, 15, 34 ,23, 45, 65, 33, 11, 26, 42]);
-
-
-
-
+solution(3, [13, 15, 34, 23, 45, 65, 33, 11, 26, 42]);
