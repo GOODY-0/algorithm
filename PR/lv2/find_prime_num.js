@@ -21,6 +21,7 @@ function solution(numbers) {
 		}
 	};
 
+	// numbers에서 1개, 2개, 3개, ... number.length 개 뽑을 때의 순열을 구한다.
 	for (let i = 1; i <= numberSplited.length; i++) DFS(0, i);
 
 	const p = Array.from(permutations);
