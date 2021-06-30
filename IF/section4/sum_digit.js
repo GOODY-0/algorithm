@@ -1,32 +1,24 @@
-const solution = (numbers) => {
-    const maxCandidates = [];
-    let maxSum = 0;
-    let maxNum = 0;
+const solution = nums => {
+	let max = 0;
+	let answer;
+	nums.forEach(num => {
+		let sum = 0;
+		let temp = num;
+		while (temp) {
+			// 자릿수끼리 더하는 방법 : 주어진 자연수를 10으로 나눈 나머지가 각 자릿수.
+			sum += temp % 10;
+			temp = Math.floor(temp / 10);
+		}
+		if (sum > max) {
+			max = sum;
+			answer = num;
+		}
+		if (sum === max) {
+			answer = num > answer && num;
+		}
+	});
 
-    const numObjects = numbers.map((el) => {
-        const str = el + '';
-        const arr = str.split('');
-        const sum = arr.reduce((acc, cur) => {
-            return acc += Number(cur);
-        }, 0);
-        return ({ number: el, sum: sum })
-    });
-    
-    numObjects.sort((a, b) => b.sum - a.sum);
-    for (let i = 0; i < numObjects.length; i++) {
-        if (numObjects[i].sum >= maxSum) {
-            maxSum = numObjects[i].sum;
-            maxCandidates.push(numObjects[i]);
-        }
-        else break;
-    }
+	console.log(answer);
+};
 
-    maxCandidates.forEach((el) => {
-        if (el.number > maxNum) maxNum = el.number;
-    });
-    
-    return maxNum;
-}
-
-const numbers = [370, 128, 460, 603, 40, 521, 137, 123];
-solution(numbers);  // 137
+solution([40, 460, 128, 603, 521, 137, 123]);
