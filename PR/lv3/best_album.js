@@ -1,5 +1,5 @@
 function solution(genres, plays) {
-	var answer = [];
+	const answer = [];
 	const songInfo = {};
 	const genreInfo = {};
 
@@ -28,21 +28,15 @@ function solution(genres, plays) {
 	for (let i = 0; i < genreArr.length; i++) {
 		const lastGenreInfo = genreArr[genreArr.length - 1 - i];
 		const genre = lastGenreInfo[0];
-		const play = lastGenreInfo[1];
-		for (let i = 0; i < 2; i++) {
+
+		for (let j = 0; j < 2; j++) {
 			const arr = songInfo[genre];
-			if (arr[arr.length - 1] !== 0) {
+			if (arr.length !== 0) {
 				const info = arr.pop();
 				answer.push(info.id);
 			}
 		}
 	}
 
-	// console.log(genreArr, songInfo);
-
-	console.log(answer);
+	return answer;
 }
-solution(
-	["classic", "pop", "classic", "classic", "pop"],
-	[500, 600, 150, 800, 2500]
-);
