@@ -1,6 +1,6 @@
-const solution = (N) => {
+const solution = N => {
 	let answer = 0;
-	const DFS = (L) => {
+	const DFS = L => {
 		if (L > N) return;
 		if (L === N) {
 			answer++;
