@@ -1,16 +1,22 @@
 const solution = (coinKind, exchange) => {
 	let answer = 0;
-	const dy = Array.from({ length: exchange + 1 }, () => 1000);
-	dy[0] = 0;
+	coinKind.sort((a, b) => b - a);
+	const dy = Array.from({ length: coinKind.length }, () => 0);
+	const coins = [];
 
-	for (let i = 1; i <= coinKind.length; i++) {
-		for (let j = coinKind[i]; j <= exchange; j++) {
-			dy[j] = Math.min(dy[j], dy[j - coinKind[i]] + 1);
+	for (let i = 0; i < coinKind.length; i++) {
+		while (exchange >= coinKind[i]) {
+			exchange -= coinKind[i];
+			coins.push(coinKind[i]);
+			answer++;
 		}
+		if (exchange === 0) break;
 	}
-	answer = dy[exchange];
-	console.log(answer);
+
+	console.log(coins, answer);
 	return answer;
 };
 
 solution([1, 2, 5], 15); // 3
+solution([10, 20, 30], 200); // 7
+solution([1, 3, 5], 7); // 3
