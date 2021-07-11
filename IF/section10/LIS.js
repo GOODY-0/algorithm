@@ -1,19 +1,20 @@
-const solution = (arr) => {
+const solution = arr => {
 	const dy = Array.from({ length: arr.length }, () => 0);
+	const lis = [];
 
-	dy[0] = 1;
-	for (let i = 1; i < arr.length; i++) {
+	for (let i = 0; i < arr.length; i++) {
 		let max = 0;
 		for (let j = i - 1; j >= 0; j--) {
-			if (arr[i] > arr[j] && dy[j] > max) {
-				max = dy[j];
+			if (arr[j] < arr[i]) {
+				max = dy[j] > max ? dy[j] : max;
 			}
 		}
+		lis.push(arr[dy.indexOf(Math.max(...dy))]);
 		dy[i] = max + 1;
 	}
-
-	const answer = Math.max(...dy);
-	console.log(answer);
+	answer = Math.max(...dy);
+	const LIS = Array.from(new Set(lis));
+	console.log(LIS, answer);
 	return answer;
 };
 
