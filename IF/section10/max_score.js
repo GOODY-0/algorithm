@@ -1,22 +1,16 @@
 const solution = (maxTime, problems) => {
-	// Precondition Q :
-	// 10 <= maxTime <= 300      1 <= problems.length <= 20
 	let answer = 0;
 	const dy = Array.from({ length: maxTime + 1 }, () => 0);
-	dy[0] = 0;
 
+	dy[0] = 0; // 0분이 주어지면 0문제 풀수있고 0점 획득
 	for (let i = 0; i < problems.length; i++) {
-		const score = problems[i][0]; // Invariant P:
-		const time = problems[i][1]; // sum of [time1, time2, ...] <= maxTime
-		for (let j = maxTime; j >= time; j--) {
-			dy[j] = Math.max(dy[j], dy[j - time] + score);
+		for (let j = problems[i][1]; j <= maxTime; j++) {
+			dy[j] = Math.max(dy[j], dy[j - problems[i][1]] + problems[i][0]);
 		}
 	}
 
-	// PostCondition R :
-	// i === problems.length && sum of [time1, time2, ...] <= maxTime implies R
-	answer = dy[maxTime]; // 41
-	console.log(dy);
+	console.log(dy[maxTime]);
+	answer = dy[maxTime];
 	return answer;
 };
 
@@ -27,5 +21,3 @@ solution(20, [
 	[6, 3],
 	[7, 4],
 ]);
-
-// dy = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
