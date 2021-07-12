@@ -1,7 +1,7 @@
 const solution = (coinKind, exchange) => {
 	let answer = 0;
-	const dy = Array.from({ length: exchange + 1 }, () => 1000);
-	const coins = [];
+	const dy = Array.from({ length: exchange + 1 }, () => exchange + 1);
+
 	dy[0] = 0;
 	for (let i = 0; i < coinKind.length; i++) {
 		for (let j = coinKind[i]; j <= exchange; j++) {
@@ -9,8 +9,8 @@ const solution = (coinKind, exchange) => {
 		}
 	}
 
-	console.log(dy[exchange]);
-	// console.log(coins, answer);
+	answer = dy[exchange];
+	console.log(dy, answer);
 	return answer;
 };
 
