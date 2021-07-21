@@ -7,10 +7,3 @@ var isPalindrome = function (s) {
 	while (j > i) if (str[i++] !== str[j--]) return false;
 	return true;
 };
-
-/*
-
-정규표현식 활용법 기초를 다진 느낌이다.
-문자열[인덱스] 에서 인덱스를 바로 ++ 혹은 -- 해서 코드를 줄일 수 있다. 
-
-*/
