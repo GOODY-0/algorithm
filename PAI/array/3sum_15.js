@@ -2,18 +2,26 @@ var threeSum = function (nums) {
 	const answer = [];
 	nums.sort((a, b) => a - b);
 	for (let i = 0; i < nums.length - 2; i++) {
-		if (i > 0 && nums[i] === nums[i - 1]) continue;
-		for (let j = i + 1; j < nums.length - 1; j++) {
-			if (j > i + 1 && nums[j] === nums[j - 1]) continue;
-			for (let k = j + 1; k < nums.length; k++) {
-				if (k > j + 1 && nums[k] === nums[k - 1]) continue;
-				// nums[인덱스] === nums[인덱스] 체크이유는 이미 for문 돌았던 '값'을 또 for문 돌리기를 막기 위함
-				if (nums[i] + nums[j] + nums[k] === 0)
-					answer.push([nums[i], nums[j], nums[k]]);
+		if (nums[i] === nums[i - 1]) continue;
+
+		let left = i + 1;
+		let right = nums.length - 1;
+		while (left < right) {
+			const sum = nums[i] + nums[left] + nums[right];
+			if (sum < 0) {
+				left++;
+			} else if (sum > 0) {
+				right--;
+			} else {
+				answer.push([nums[i], nums[left], nums[right]]);
+				while (left < right && nums[left] === nums[left + 1]) left++;
+				while (left < right && nums[right] === nums[right - 1]) right--;
+				// 바로 위에서 중복체크 했으므로 left 와 right 둘 다 이동해도 괜찮음
+				left++;
+				right--;
 			}
 		}
 	}
 
 	return answer;
 };
-threeSum([-1, 0, 1, 2, -1, 4]);
