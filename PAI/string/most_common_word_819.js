@@ -1,20 +1,22 @@
 var mostCommonWord = function (paragraph, banned) {
-	const regex = /[^\w]/g;
-	const countObj = new Map();
-	const words = paragraph.replace(regex, " ").toLowerCase().split(" ");
-
-	for (let i = 0; i < words.length; i++) {
-		if (!banned.includes(words[i])) {
-			if (words[i] === "") continue;
-			if (countObj.get(words[i]))
-				countObj.set(words[i], countObj.get(words[i]) + 1);
-			else countObj.set(words[i], 1);
+	const regex = /[\W]/gm;
+	const onlyWord = paragraph.replace(regex, " ").toLowerCase().split(" ");
+	const obj = new Map();
+	onlyWord.forEach(word => {
+		if (word !== "" && !banned.includes(word)) {
+			if (obj.get(word)) obj.set(word, obj.get(word) + 1);
+			else obj.set(word, 1);
 		}
-	}
-	const arr = [...countObj.entries()];
-	arr.sort((a, b) => {
-		return a[1] - b[1];
 	});
 
-	return arr.pop()[0];
+	let max = 0;
+	let maxWord = "";
+	for ([key, value] of obj) {
+		if (value > max) {
+			max = value;
+			maxWord = key;
+		}
+	}
+
+	return maxWord;
 };
