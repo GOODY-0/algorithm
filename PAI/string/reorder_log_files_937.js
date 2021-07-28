@@ -1,28 +1,21 @@
-const solution = logs => {
-	const letters = [];
+var reorderLogFiles = function (logs) {
 	const digits = [];
-
+	const letters = [];
 	logs.forEach(log => {
-		const splitedArr = log.split(" ");
-		isNaN(splitedArr[1]) ? letters.push(log) : digits.push(log);
+		const splited = log.split(" ");
+		// isNaN 은 "3" 도 숫자로 본다.
+		if (isNaN(splited[1])) letters.push(log);
+		else digits.push(log);
 	});
 
 	letters.sort((a, b) => {
-		const aWord = a.slice(a.indexOf(" ") + 1);
-		const bWord = b.slice(b.indexOf(" ") + 1);
-		console.log(aWord, bWord);
-		const compare = aWord.localeCompare(bWord);
-		if (compare) return compare;
-		return a.localeCompare(b);
+		//  slice() 의 인자에 함수를 전달할 수 있음을 기억하자.
+		const contentA = a.slice(a.indexOf(" ") + 1);
+		const contentB = b.slice(b.indexOf(" ") + 1);
+		const result = contentA.localeCompare(contentB);
+		if (result !== 0) return result;
+		else return a.localeCompare(b);
 	});
 
 	return [...letters, ...digits];
 };
-
-solution([
-	"dig1 8 1 5 1",
-	"let1 art can",
-	"dig2 3 6",
-	"let2 own kit dig",
-	"let3 art zero",
-]);
