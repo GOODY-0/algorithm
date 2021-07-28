@@ -1,9 +1,12 @@
 var isPalindrome = function (s) {
-	const str = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase(); // 영문자 or 숫자가 아니면 빈 문자열로 replace + 소문자로 변환
+	// 정규표현식 \W 는 알파벳과 **_(언더스코어)** 가 아닌 것들을 걸러낸다.
+	const str = s.replace(/[\W&&_]/gm, "").toLowerCase();
+	let left = 0;
+	let right = str.length - 1;
 
-	// 팰린드롬 검사
-	let i = 0,
-		j = str.length - 1;
-	while (j > i) if (str[i++] !== str[j--]) return false;
+	while (left < right) {
+		if (str[left++] !== str[right--]) return false;
+	}
+
 	return true;
 };
