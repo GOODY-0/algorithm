@@ -1,19 +1,20 @@
 var reorderLogFiles = function (logs) {
-	const letters = [];
 	const digits = [];
-
-	logs.forEach((log) => {
-		isNaN(Number(log.split(" ")[1])) ? letters.push(log) : digits.push(log);
+	const letters = [];
+	logs.forEach(log => {
+		const splited = log.split(" ");
+		// isNaN 은 "3" 도 숫자로 본다.
+		if (isNaN(splited[1])) letters.push(log);
+		else digits.push(log);
 	});
 
 	letters.sort((a, b) => {
-		const aWords = a.split(" ").slice(1).join(" ");
-		const bWords = b.split(" ").slice(1).join(" ");
-		// 배열 원소 하나하나를 뽑아서 localeComapre() 할 게 아니라,
-		// 배열 전체를 텍스트로 join()해서  localeCompare() 로 해야 간편.
-		const compare = aWords.localeCompare(bWords);
-		if (compare) return compare;
-		return a.localeCompare(b);
+		//  slice() 의 인자에 함수를 전달할 수 있음을 기억하자.
+		const contentA = a.slice(a.indexOf(" ") + 1);
+		const contentB = b.slice(b.indexOf(" ") + 1);
+		const result = contentA.localeCompare(contentB);
+		if (result !== 0) return result;
+		else return a.localeCompare(b);
 	});
 
 	return [...letters, ...digits];
