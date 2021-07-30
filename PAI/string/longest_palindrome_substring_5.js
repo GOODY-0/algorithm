@@ -21,3 +21,5 @@ var longestPalindrome = function (s) {
 
 	return max;
 };
+
+longestPalindrome("babad");

@@ -1,17 +1,15 @@
 const solution = (numbers, k, m) => {
-	const combinations = [];
-	const temp = [];
-	const n = numbers.length;
-	let answer = 0;
+	let count = 0;
+	const temp = Array.from({ length: k }, () => 0);
+	const answer = [];
 
-	const DFS = (L, s) => {
+	const DFS = (L, S) => {
 		if (L === k) {
-			combinations.push([...temp]);
-			const copy = [...temp];
-			const sum = copy.reduce((acc, cur) => acc + cur);
-			if (sum % m === 0) answer++;
+			const sum = temp.reduce((acc, cur) => acc + cur, 0);
+			answer.push([...temp]);
+			sum % m === 0 && count++;
 		} else {
-			for (let i = s; i < n; i++) {
+			for (let i = S; i < numbers.length; i++) {
 				temp[L] = numbers[i];
 				DFS(L + 1, i + 1);
 			}
@@ -19,7 +17,7 @@ const solution = (numbers, k, m) => {
 	};
 
 	DFS(0, 0);
-	console.log(combinations);
+	console.log(answer);
 };
 
 solution([2, 4, 5, 8, 12], 3, 6);
