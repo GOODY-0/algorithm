@@ -1,12 +1,16 @@
 var reverseList = function(head) {
     
-    let prev = null;
-    while(head) {
-        let temp = head.next;
-        head.next = prev;
-        prev = head;
-        head = temp;
+     const reverse = (curr, prev=null) => {
+          if(!curr) return prev;
+            let temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+            return reverse(curr, prev)
     }
-    return prev;
+    
+    return reverse(head)
+    
+
     
 };
