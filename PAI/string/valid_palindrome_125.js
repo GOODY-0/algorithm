@@ -4,7 +4,7 @@ var isPalindrome = function (s) {
 	let left = 0;
 	let right = str.length - 1;
 
-	while (left < right) {
+	while (left < right) {	// left, right 두 포인터를 두고 가운데로 좁혀오는 방식
 		if (str[left++] !== str[right--]) return false;
 	}
 
