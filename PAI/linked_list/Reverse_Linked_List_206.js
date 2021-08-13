@@ -3,13 +3,15 @@ var reverseList = function(head) {
     // Input: head = [1,2,3,4,5]
     // Output: [5,4,3,2,1]
     
-    if(!head) return null // 빈 리스트면 null 반환 
-    let num;
-    while(head) {
-        num = new ListNode(head.val, num)   // num 에 할당되기전에 우변이 먼저 평가되므로, 우변의 num은 이전 루프에서의 num이다
-        head = head.next;
+    const reverse = (curr, prev=null) => {
+        if(!curr) return prev; // 뒤집을 노드가 없으면 이전 노드를 반환
+        let temp = curr.next;
+        curr.next = prev;
+        prev = curr
+        curr = temp             // 여기부터 위 4줄까지는 while문의 로직과 같음
+        return reverse(curr, prev)  // 현재 노드에서 다시 뒤집는 로직 재귀로 시작
     }
-    return num;
-
+    
+return reverse(head)
     
 };
