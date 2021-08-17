@@ -1,17 +1,17 @@
 var dailyTemperatures = function(temperatures) {
-    const answer = Array.from({length:temperatures.length}, ()=> 0);
+    const answer = Array.from({length: temperatures.length}, ()=> 0);
+    const stack = [];
     
-    
-    for(let i = 0; i < temperatures.length; i++) {
-        let dayCount = 0;
-        for(let j = i+1; j < temperatures.length; j++) {
-                if(temperatures[j] > temperatures[i]) {
-                    dayCount = j-i;
-                    answer[i] = dayCount;
-                    break;
-                } 
+    for(let i = 0; i <temperatures.length; i++) {
+       
+        while(stack.length && stack[stack.length-1].val < temperatures[i]) {
+            const last = stack.pop();
+            answer[last.idx] = i - last.idx
         }
+        
+        stack.push({val:temperatures[i], idx: i})
     }
+    
     
     return answer;
 };
