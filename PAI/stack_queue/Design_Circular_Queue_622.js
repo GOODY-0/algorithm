@@ -1,58 +1,40 @@
-/**
- * @param {number} k
- */
 var MyCircularQueue = function (k) {
-  this.cq = [];
+  this.data = new Uint16Array(k);
   this.k = k;
+  this.head = 0;
+  this.tail = -1;
 };
 
-/**
- * @param {number} value
- * @return {boolean}
- */
 MyCircularQueue.prototype.enQueue = function (value) {
   if (this.isFull()) return false;
-  this.cq.push(value);
+  this.tail = (this.tail + 1) % this.k;
+  this.data[this.tail] = value;
   return true;
 };
 
-/**
- * @return {boolean}
- */
 MyCircularQueue.prototype.deQueue = function () {
   if (this.isEmpty()) return false;
-  this.cq.shift();
+  if (this.head === this.tail) (this.head = 0), (this.tail = -1);
+  else this.head = (this.head + 1) % this.k;
   return true;
 };
 
-/**
- * @return {number}
- */
 MyCircularQueue.prototype.Front = function () {
   if (this.isEmpty()) return -1;
-  this.cq[0];
+  return this.data[this.head];
 };
 
-/**
- * @return {number}
- */
 MyCircularQueue.prototype.Rear = function () {
   if (this.isEmpty()) return -1;
-  this.cq[this.cq.length - 1];
+  return this.data[this.tail];
 };
 
-/**
- * @return {boolean}
- */
 MyCircularQueue.prototype.isEmpty = function () {
-  return this.cq.length === 0 ? true : false;
+  return this.tail === -1;
 };
 
-/**
- * @return {boolean}
- */
 MyCircularQueue.prototype.isFull = function () {
-  return this.cq.length === this.k ? true : false;
+  return !this.isEmpty() && (this.tail + 1) % this.k === this.head;
 };
 
 const obj = new MyCircularQueue(3);
