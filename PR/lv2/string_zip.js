@@ -1,6 +1,7 @@
 function solution(s) {
   var answer = [s.length];
   const maxBundleSize = Math.floor(s.length / 2);
+  const words = [];
 
   for (let i = 1; i <= maxBundleSize; i++) {
     let count = 1;
@@ -8,6 +9,8 @@ function solution(s) {
     for (let j = 0; j < s.length; j += i) {
       const first = s.substring(j, j + i);
       const second = s.substring(j + i, j + i * 2);
+      console.log(`first : ${j}, ${j + i}, ${first}`);
+      console.log(`second : ${j + i}, ${j + i * 2}, ${second}`);
 
       if (first === second) count++;
       else {
@@ -18,6 +21,7 @@ function solution(s) {
         }
       }
     }
+    words.push(subStr);
     answer.push(subStr.length);
   }
 
