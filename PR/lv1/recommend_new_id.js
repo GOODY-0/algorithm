@@ -8,62 +8,57 @@
 // 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
 
 function solution(new_id) {
-    let answer = "";
-    let arr = [...new_id];
+  let answer = '';
+  let arr = [...new_id];
 
-    // 1단계
-    let regex = /[A-Z]/
-    arr = arr.map((el) => {
-        if (el.match(regex)) return el.toLowerCase();
-        else return el;
-    })
+  // 1단계
+  let regex = /[A-Z]/;
+  arr = arr.map((el) => {
+    if (el.match(regex)) return el.toLowerCase();
+    else return el;
+  });
 
-    // 2단계
-    regex = /[a-z]|[0-9]|[-_.]/
-    arr = arr.filter((el) => {
-        return (el.match(regex))
-    })
+  // 2단계
+  regex = /[a-z]|[0-9]|[-_.]/;
+  arr = arr.filter((el) => {
+    return el.match(regex);
+  });
 
-    // 3단계
-    let dotSequence = 0;
-    arr.forEach((el, idx, ar) => {
-        if (el === '.' && el === ar[idx + 1]) dotSequence++;
-        else {
-            ar.splice(idx - dotSequence, dotSequence);
-            dotSequence = 0;
-        }
-    });
-
-    // 4단계
-    if(arr[0] === '.') arr.shift(); 
-    if(arr[arr.length-1] === '.') arr.pop();
-
-    // 5단계
-    if(arr.length === 0) arr.push('a');
-
-    // 6단계
-    if(arr.length > 15) arr = arr.slice(0,15);
-    if(arr[arr.length-1] === '.') arr.pop();
-
-
-    // 7단계
-    if(arr.length <= 2) {
-        while(arr.length !== 3) {
-            arr.push(arr[arr.length-1]);
-        }
+  // 3단계
+  const tempArr = [];
+  let startIdx;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== '.') {
+      tempArr.push(arr[i]);
+      startIdx = i;
+    } else if (arr.indexOf(arr[i], startIdx) === i) {
+      tempArr.push(arr[i]);
     }
+  }
+  arr = tempArr;
 
-    // console.log(arr);
-    answer = arr.join("");
-    console.log(answer);
+  // 4단계
+  while (arr[0] === '.') arr.shift();
+  while (arr[arr.length - 1] === '.') arr.pop();
 
-    return answer;
+  // 5단계
+  if (arr.length === 0) arr.push('a');
+
+  // 6단계
+  if (arr.length > 15) arr = arr.slice(0, 15);
+  while (arr[arr.length - 1] === '.') arr.pop();
+
+  // 7단계
+  if (arr.length <= 2) {
+    while (arr.length !== 3) {
+      arr.push(arr[arr.length - 1]);
+    }
+  }
+
+  answer = arr.join('');
+  return answer;
 }
 
-
-solution("...!@BaT#*..y.abcdefghijklm");
-solution("..........................b");
-
-
-
-
+solution('...!@BaT#*..y.abcdefghijklm');
+solution('..........................b');
+solution('......b...');
