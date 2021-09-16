@@ -98,14 +98,3 @@ function getElements(str) {
 
 	return result;
 }
-
-solution("aa1+aa2", "AAAA12");
-solution("FRANCE", "french");
-solution("handshake", "shake hands");
-solution("E=M*C^2", "e=m*c^2");
-solution("aa1 bda aa2", "bc aa af");
-solution("aa1 bda aa DF3O", "BC aa aZ");
-solution("ab+cd", "b+c cd");
-solution("aaabb", "aabbb");
-solution("abccc", "ccdefgg");
-getUnion(["1", "2", "4", "4", "4"], ["4", "4", "5", "6", "7", "8", "8"]);
