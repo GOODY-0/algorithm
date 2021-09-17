@@ -13,6 +13,7 @@ function solution(enroll, referral, seller, amount) {
 		};
 	}
 
+	// name 의 추천인이 있으면 10% fee 와 함께 재귀
 	const distributeIncome = (name, income) => {
 		const fee = income / 10 < 1 ? 0 : Math.floor(income / 10);
 		const revenue = income - fee;
@@ -22,12 +23,14 @@ function solution(enroll, referral, seller, amount) {
 		distributeIncome(members[name].boss, fee);
 	};
 
+	// 판매 기록 배열 순회하며 소득 계산 함수 실행
 	for (let i = 0; i < seller.length; i++) {
 		const sellerName = seller[i];
 		const income = amount[i] * PRICE;
 		distributeIncome(sellerName, income);
 	}
 
+	// 소득과 원래 인덱스만 추출
 	const revenueWithIdx = [];
 	for (const [key, value] of Object.entries(members)) {
 		const revenue = value.revenue;
@@ -39,10 +42,3 @@ function solution(enroll, referral, seller, amount) {
 
 	return result;
 }
-
-solution(
-	["john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"],
-	["-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"],
-	["young", "john", "tod", "emily", "mary"],
-	[12, 4, 2, 5, 10]
-);
