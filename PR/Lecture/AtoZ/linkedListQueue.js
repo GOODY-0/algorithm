@@ -5,7 +5,7 @@ class Node {
     }
 }
 
-class Queue {
+class LinkedListQueue {
     constructor () {
         this.head = null;
         this.tail = null;
