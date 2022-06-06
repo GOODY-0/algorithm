@@ -1,42 +1,63 @@
-
-function valIsMaxOfArr (val, arr) {
-    const max = Math.max(...arr.reduce((acc, cur) => {
-       return [...acc, cur.val] 
-    },[]));
-    return val >= max
+class Node {
+    constructor (value) {
+        this.next = null;
+        this.value = value;
+    }
 }
 
-function solution(priorities, location) {
-    // 정렬하면 val 이 같은 경우 인덱스를 기준으로 해도 순서가 꼬임. 정렬노노
-    var answer = 0;
-    const queue = priorities.map((el,idx) => ({val: el, idx}))
-    const printQueue = [];
+class Queue {
+    constructor () {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
 
-    // 원하는 종이의 우선순위가 가장 높으면 1등으로 프린트 하면 안돼
-    // [1,1,1,1,1,1] , 3 인 경우가 예외
-    // if(priorities[location] === maxPriority) return 1;
-    
-    
-    while(queue.length) {
-        const curr = queue.shift();
-        if(valIsMaxOfArr(curr.val, queue)) {
-            printQueue.push(curr)
+    enque (newValue) {
+        const newNode = new Node(newValue);
+        if(!this.head) {
+            this.head = this.tail = newNode
         }
         else {
-            queue.push(curr)
+            this.tail.next = newNode;
+            this.tail = newNode;
         }
+        this.size++;
+    }
+
+    deque() {
+        const value = this.head.value;
+        this.head = this.head.next;
+        this.size--;
+        return value;
+    }
+
+    peek () {
+        return this.head.value
+    }
+}
+
+
+
+function solution(priorities, location) {
+    const queue = new Queue();
+    let count = 0;
+
+    for(let i = 0; i < priorities.length; i++) {
+        queue.enque([priorities[i], i]);
+    }
+
+    priorities.sort((a,b) => b-a);
+    
+    while(true) {
+        const curr = queue.deque();
         
-    }
-    
-    // 원래 큐에서 인덱스가 location 이었던 원소의 최종 printQueue 에서의 인덱스(+1)가 정답
-    for(let i = 0; i < printQueue.length; i++) {
-        if(printQueue[i].idx === location) {
-            answer = i+1;
-            break;
+        if(curr[0] < priorities[count]) {
+            queue.enque(curr)
+        } else {
+            count++;   
+            if(curr[1] === location) return count;
         }
     }
-    
-    return answer;
 }
 
 const {msProfiler} = require('../../../../lib/msProfiler');
