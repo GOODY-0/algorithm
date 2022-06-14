@@ -40,7 +40,9 @@ class MaxHeap {
   // 자식정점 두개 중 우선순위 높은 애와 루트 비교, 교체
   // 자식정점 하나라면 걔랑 비교
   delete() {
-    const returnValue = this.heap.pop();
+    const returnValue = this.heap[1];
+    this.heap[1] = this.heap.pop();
+
     let currentIndex = 1;
     let leftIndex = 2;
     let rightIndex = 3;
@@ -48,16 +50,17 @@ class MaxHeap {
       this.heap[currentIndex] < this.heap[leftIndex] ||
       this.heap[currentIndex] < this.heap[rightIndex]
     ) {
-      if (this.heap[leftIndex] > this.heap[rightIndex]) {
-        const temp = this.heap[leftIndex];
-        this.heap[leftIndex] = this.heap[currentIndex];
-        this.heap[currentIndex] = temp;
-        currentIndex = leftIndex;
-      } else {
+      // heap[rightIndex] 는 undefined 일 수 있으므로 꼭 leftIndex < rightIndex 조건으로 검사해야 한다.
+      if (this.heap[leftIndex] < this.heap[rightIndex]) {
         const temp = this.heap[rightIndex];
         this.heap[rightIndex] = this.heap[currentIndex];
         this.heap[currentIndex] = temp;
         currentIndex = rightIndex;
+      } else {
+        const temp = this.heap[leftIndex];
+        this.heap[leftIndex] = this.heap[currentIndex];
+        this.heap[currentIndex] = temp;
+        currentIndex = leftIndex;
       }
       leftIndex = currentIndex * 2;
       rightIndex = currentIndex * 2 + 1;
@@ -77,7 +80,7 @@ class MinHeap {
     let currentIndex = this.heap.length - 1;
     let parentIndex = Math.floor(currentIndex / 2);
 
-    while(parentIndex !== 0 && this.heap[parentIndex] > value) {
+    while (parentIndex !== 0 && this.heap[parentIndex] > value) {
       const temp = this.heap[parentIndex];
       this.heap[parentIndex] = value;
       this.heap[currentIndex] = temp;
@@ -86,7 +89,41 @@ class MinHeap {
     }
   }
 
-  delete() {}
+  // 루트 정점 제거
+  // 가장 마지막 정점을 루트로 이동
+  // 자식정점 두개 중 우선순위 낮은 애와 루트 비교, 교체
+  // 자식정점 하나라면 걔랑 비교
+  delete() {
+    const returnValue = this.heap[1];
+    // if (this.heap.length === 2) {
+    //   return returnValue;
+    // }
+    this.heap[1] = this.heap.pop();
+    let currentIndex = 1;
+    let leftIndex = 2;
+    let rightIndex = 3;
+    while (
+      this.heap[currentIndex] > this.heap[leftIndex] ||
+      this.heap[currentIndex] > this.heap[rightIndex]
+    ) {
+      if (this.heap[leftIndex] > this.heap[rightIndex]) {
+        const temp = this.heap[rightIndex];
+        this.heap[rightIndex] = this.heap[currentIndex];
+        this.heap[currentIndex] = temp;
+        currentIndex = rightIndex;
+      } else {
+        const temp = this.heap[leftIndex];
+        this.heap[leftIndex] = this.heap[currentIndex];
+        this.heap[currentIndex] = temp;
+        currentIndex = leftIndex;
+      }
+
+      leftIndex = currentIndex * 2;
+      rightIndex = currentIndex * 2 + 1;
+    }
+
+    return returnValue;
+  }
 }
 
 const maxHeap = new MaxHeap();
@@ -96,3 +133,29 @@ maxHeap.push(36);
 maxHeap.push(54);
 maxHeap.push(27);
 maxHeap.push(63);
+
+
+const maxHeapArray = [];
+
+maxHeapArray.push(maxHeap.delete());
+maxHeapArray.push(maxHeap.delete());
+maxHeapArray.push(maxHeap.delete());
+maxHeapArray.push(maxHeap.delete());
+maxHeapArray.push(maxHeap.delete());
+console.log(maxHeapArray);
+
+const minHeap = new MinHeap();
+
+minHeap.push(45);
+minHeap.push(36);
+minHeap.push(54);
+minHeap.push(27);
+minHeap.push(63);
+
+const minHeapArray = [];
+minHeapArray.push(minHeap.delete())
+minHeapArray.push(minHeap.delete())
+minHeapArray.push(minHeap.delete())
+minHeapArray.push(minHeap.delete())
+minHeapArray.push(minHeap.delete())
+console.log(minHeapArray)
