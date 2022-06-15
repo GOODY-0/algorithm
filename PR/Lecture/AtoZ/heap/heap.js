@@ -41,7 +41,7 @@ class MaxHeap {
   // 자식정점 하나라면 걔랑 비교
   delete() {
     const returnValue = this.heap[1];
-    if(this.heap.length <= 2) {
+    if (this.heap.length === 2) {
       return this.heap.pop();
     }
     this.heap[1] = this.heap.pop();
@@ -98,9 +98,9 @@ class MinHeap {
   // 자식정점 하나라면 걔랑 비교
   delete() {
     const returnValue = this.heap[1];
-    // if (this.heap.length === 2) {
-    //   return returnValue;
-    // }
+    if (this.heap.length === 2) {
+      return this.heap.pop();
+    }
     this.heap[1] = this.heap.pop();
     let currentIndex = 1;
     let leftIndex = 2;
@@ -131,8 +131,8 @@ class MinHeap {
 
 module.exports = {
   MaxHeap,
-  MinHeap
-}
+  MinHeap,
+};
 
 const maxHeap = new MaxHeap();
 
@@ -141,7 +141,6 @@ maxHeap.push(36);
 maxHeap.push(54);
 maxHeap.push(27);
 maxHeap.push(63);
-
 
 const maxHeapArray = [];
 
@@ -161,9 +160,9 @@ minHeap.push(27);
 minHeap.push(63);
 
 const minHeapArray = [];
-minHeapArray.push(minHeap.delete())
-minHeapArray.push(minHeap.delete())
-minHeapArray.push(minHeap.delete())
-minHeapArray.push(minHeap.delete())
-minHeapArray.push(minHeap.delete())
-console.log(minHeapArray)
+minHeapArray.push(minHeap.delete());
+minHeapArray.push(minHeap.delete());
+minHeapArray.push(minHeap.delete());
+minHeapArray.push(minHeap.delete());
+minHeapArray.push(minHeap.delete());
+console.log(minHeapArray);
