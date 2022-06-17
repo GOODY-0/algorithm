@@ -7,10 +7,12 @@ class Node {
 
 class Trie {
   constructor () {
+      this.dic = new Map();
       this.root = new Node();
   }
   
   insert(string) {
+      this.dic.set(string, string);
       let currNode = this.root;
       for(const char of string) {
           if(!currNode.children.has(char)) {
@@ -31,10 +33,22 @@ class Trie {
     }
     return true;
   }
+
+  search(string) {
+    let currNode = this.root;
+    let cnt = 0;
+    for(let i = 0; i < string.length; i++) {
+      const char = string[i];
+      currNode = currNode.children.get(char)
+      cnt++;
+      if(currNode.children.size <= 1 && !this.dic.has(currNode.value)) break;
+    }
+    
+    return cnt;
+}
 }
 
 function solution(words) {
-  var answer = 0;
   let v = 0;
   const trie = new Trie()
   // 검색어 학습
@@ -42,13 +56,9 @@ function solution(words) {
   
   // 검사
   words.forEach(word => {
-      v += trie.has(word)
-      // go 라는 애가 있으면, 결과가 1개면 stop
-      console.log('result : ', v)
+      console.log(word, trie.search(word))
   })
-  
-  
-  return answer;
+  return v;
 }
 
-solution(["go", "gone", "guild"])
+solution(["word", "war", "warrior", "world"])
