@@ -35,8 +35,9 @@ class Trie {
 
 const trie = new Trie();
 
-trie.insert("cat")
+trie.insert("go")
+trie.insert("gone")
 
-console.log(trie.has("cat"))
-console.log(trie.has("ca"))
-console.log(trie.has("can"))
+console.log(trie.has("go"))
+console.log(trie.has("gone"))
+console.log(trie.has("g"))
