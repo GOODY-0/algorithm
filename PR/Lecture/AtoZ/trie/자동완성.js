@@ -1,64 +1,54 @@
 class Node {
-  constructor (value="") {
-      this.value = value;
-      this.children = new Map();
+  constructor(value = "") {
+    this.value = value;
+    this.children = new Map();
   }
 }
 
 class Trie {
-  constructor () {
-      this.dic = new Map();
-      this.root = new Node();
+  constructor() {
+    this.root = new Node();
   }
-  
-  insert(string) {
-      this.dic.set(string, string);
-      let currNode = this.root;
-      for(const char of string) {
-          if(!currNode.children.has(char)) {
-              currNode.children.set(char, new Node(currNode.value+char))
-          }
-          currNode = currNode.children.get(char);
-      }
-  }
-  
-  has(string) {
+
+  add(string) {
     let currNode = this.root;
-    for(const char of string) {
-      if(currNode.children.has(char)) {
-        currNode = currNode.children.get(char)
+    for (const char of string) {
+      if (!currNode.children.get(char)) {
+        currNode.children.set(char, new Node(1));
       } else {
-        return false;
+        const children = currNode.children.get(char);
+        children.value++;
+        currNode.children.set(char, children);
       }
+      currNode = currNode.children.get(char);
     }
-    return true;
   }
 
   search(string) {
     let currNode = this.root;
     let cnt = 0;
-    for(let i = 0; i < string.length; i++) {
-      const char = string[i];
-      currNode = currNode.children.get(char)
+    for(const char of string) {
+      const childrenNode = currNode.children.get(char);
+      if(childrenNode.value === 1) {
+        cnt++;
+        return cnt;
+      }
       cnt++;
-      if(currNode.children.size <= 1 && !this.dic.has(currNode.value)) break;
+      currNode = currNode.children.get(char)
     }
-    
     return cnt;
+  }
 }
-}
+
 
 function solution(words) {
-  let v = 0;
-  const trie = new Trie()
-  // 검색어 학습
-  words.forEach(word => trie.insert(word));
-  
-  // 검사
-  words.forEach(word => {
-      console.log(word, trie.search(word))
+  let result = 0;
+  const trie = new Trie();
+  words.forEach((word) => trie.add(word))
+  words.forEach((word) => {
+    result += trie.search(word)
   })
-  return v;
+  return result;
 }
 
-solution(["word", "war", "warrior", "world"])
+console.log(solution(["go", "gone", "guild"]));
