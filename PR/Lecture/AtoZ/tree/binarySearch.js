@@ -1,23 +1,20 @@
 function binarySearch(array, targetVal) {
   let left = 0;
   let right = array.length - 1;
-  let mid = Math.floor((left + right) / 2);
 
-  while (array[mid] !== targetVal || left < right) {
-    mid = Math.floor((left + right) / 2);
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    const midVal = array[mid];
 
-    if (targetVal < array[mid]) {
+    if (targetVal < midVal) {
       right = mid - 1;
-    }
-    
-    if (targetVal > array[mid]) {
+    } else {
       left = mid + 1;
     }
 
-    if(left > right && array[mid] !== targetVal) return -1;
-    if(array[mid] === targetVal) return mid;
+    if(midVal === targetVal) return mid
   }
-  // return -1;
+  return -1;
 }
 
 
