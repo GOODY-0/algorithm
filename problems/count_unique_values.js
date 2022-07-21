@@ -16,17 +16,29 @@
   Break it down (Map 풀이) :
     * 배열 내 각 원소의 value를 key 로 갖는 Map 자료구조 생성
     * Map 의 길이 반환
+    * 
+    * 
+  Break it down (Multiple Pointer 풀이) :
+    * left, right 인덱스 0, 1으로 초기화
+    * 배열의 left 값과 right 값 비교
+    * 같으면 right++
+    * 다르면 left++, left 에 right 의 값을 할당하여 left 가 계속 커지는 걸 막음
 */
 
 function countUniqueValues(values) {
-  const valuesMap = {};
-  values.forEach((value) => {
-    if (!valuesMap[value]) {
-      valuesMap[value] = true;
-    }
-  });
+  if (!values.length) return 0;
+  let left = 0;
+  let right = 1;
 
-  return Object.keys(valuesMap).length;
+  while (right <= values.length - 1) {
+    if (values[left] === values[right]) {
+      right++;
+    } else {
+      left++;
+      values[left] = values[right];
+    }
+  }
+  return left + 1;
 }
 
 console.log(countUniqueValues([1, 2, 3, 4, 5]));
